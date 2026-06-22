@@ -20,7 +20,7 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* スクリューバーのカスタマイズ */
+        /* スクロールバーのカスタマイズ */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -108,7 +108,7 @@
                             <!-- 1. 教科を選ぶ -->
                             <div>
                                 <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">1. 教科を選ぶ</h4>
-                                <div id="subject-cards-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <div id="subject-cards-container" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                                     <!-- 動的にレンダリング -->
                                 </div>
                             </div>
@@ -318,18 +318,18 @@
         // 暗証番号設定
         const CORRECT_PIN = "1234";
 
-        // 科目設定（各英字idが各.jsonファイル名に対応）
+        // 科目設定（アイコンを削除し、純粋な科目名のみをコンパクトに管理）
         const SUBJECTS_CONFIG = [
-            { id: "seiji",   name: "政治", icon: "landmark" },
-            { id: "keizai",  name: "経済", icon: "trending-up" },
-            { id: "nihonshi", name: "日本史", icon: "hourglass" },
-            { id: "sekaishi", name: "世界史", icon: "globe" },
-            { id: "chiri",   name: "地理", icon: "map" },
-            { id: "seibutsu", name: "生物", icon: "dna" },
-            { id: "kagaku",  name: "化学", icon: "atom" },
-            { id: "chigaku",  name: "地学", icon: "mountain" },
-            { id: "butsuri",   name: "物理", icon: "apple" },
-            { id: "shisou",   name: "思想", icon: "lightbulb" }
+            { id: "seiji",   name: "政治" },
+            { id: "keizai",  name: "経済" },
+            { id: "nihonshi", name: "日本史" },
+            { id: "sekaishi", name: "世界史" },
+            { id: "chiri",   name: "地理" },
+            { id: "seibutsu", name: "生物" },
+            { id: "kagaku",  name: "化学" },
+            { id: "chigaku",  name: "地学" },
+            { id: "butsuri",   name: "物理" },
+            { id: "shisou",   name: "思想" }
         ];
 
         // Global State Memory
@@ -383,7 +383,7 @@
             await prefetchAllSubjectsData();
         }
 
-        // Render Subject Cards to Grid (ダークテーマデザイン仕様)
+        // Render Subject Cards to Grid (スマートフォン向けアイコンなし・コンパクトUI)
         function renderSubjectCards() {
             const container = document.getElementById('subject-cards-container');
             container.innerHTML = "";
@@ -392,17 +392,15 @@
                 const card = document.createElement('button');
                 card.id = `sub-card-${sub.id}`;
                 card.onclick = () => selectSubject(sub.id);
-                card.className = "bg-[#1f2937]/40 border border-slate-800/80 hover:border-indigo-500/50 p-4 rounded-xl text-left transition duration-150 shadow-md flex flex-col justify-between space-y-4 group relative overflow-hidden";
+                // パディングを減らし、高さもスマートに収まるサイズに変更
+                card.className = "bg-[#1f2937]/40 border border-slate-800/80 hover:border-indigo-500/50 px-3 py-3 rounded-xl text-left transition duration-150 shadow-md flex items-center justify-between group relative overflow-hidden";
                 
                 card.innerHTML = `
-                    <div class="p-2 bg-slate-800/60 group-hover:bg-indigo-950/50 text-slate-400 group-hover:text-indigo-400 rounded-lg w-10 h-10 flex items-center justify-center border border-slate-800 group-hover:border-indigo-900/40 transition">
-                        <i data-lucide="${sub.icon || 'book'}" class="w-5 h-5"></i>
+                    <div class="flex-grow min-w-0 pr-2">
+                        <h5 class="font-bold text-slate-300 group-hover:text-white text-sm tracking-tight transition truncate">${sub.name}</h5>
+                        <p id="sub-count-badge-${sub.id}" class="text-[10px] text-slate-500 font-semibold mt-0.5">未読込み</p>
                     </div>
-                    <div>
-                        <h5 class="font-bold text-slate-300 group-hover:text-white text-sm tracking-tight transition">${sub.name}</h5>
-                        <p id="sub-count-badge-${sub.id}" class="text-[10px] text-slate-500 font-medium mt-0.5">未読込み</p>
-                    </div>
-                    <div class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 text-indigo-400 transition duration-150">
+                    <div class="text-slate-500 group-hover:text-indigo-400 transition duration-150 shrink-0">
                         <i data-lucide="chevron-right" class="w-4 h-4"></i>
                     </div>
                 `;
