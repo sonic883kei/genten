@@ -10,6 +10,7 @@
     <style>
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #0b0f19;
         }
         /* Custom smooth transition */
         .fade-in {
@@ -19,43 +20,59 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* スクリューバーのカスタマイズ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+<body class="text-slate-100 min-h-screen flex flex-col antialiased">
 
-    <div id="security-gate" class="fixed inset-0 z-50 bg-slate-900 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4 text-center">
-            <div class="inline-flex p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+    <!-- 学生認証セキュリティゲート (ダークテーマ仕様) -->
+    <div id="security-gate" class="fixed inset-0 z-50 bg-[#060911] flex items-center justify-center p-4">
+        <div class="bg-[#111827] rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-800 space-y-4 text-center">
+            <div class="inline-flex p-3 bg-indigo-950/50 text-indigo-400 rounded-xl border border-indigo-900/40">
                 <i data-lucide="lock" class="w-6 h-6"></i>
             </div>
             <div class="space-y-1">
-                <h4 class="font-bold text-slate-900 text-lg">学生認証</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">在籍生専用システムです。暗証番号を入力してください。</p>
+                <h4 class="font-bold text-white text-lg">学生認証</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">在籍生専用システムです。暗証番号を入力してください。</p>
             </div>
             <div class="space-y-2">
                 <input type="password" id="input-pin-code" placeholder="••••" maxlength="8"
-                       class="w-full text-center text-xl font-bold tracking-widest border border-slate-300 rounded-xl py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                <p id="security-error-msg" class="text-xs font-semibold text-rose-500 hidden">暗証番号が一致しません</p>
+                       class="w-full text-center text-xl font-bold tracking-widest bg-[#1f2937] border border-slate-700 rounded-xl py-3 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <p id="security-error-msg" class="text-xs font-semibold text-rose-400 hidden">暗証番号が一致しません</p>
             </div>
-            <button onclick="verifyPinCode()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md transition duration-150">
+            <button onclick="verifyPinCode()" class="w-full bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] hover:from-[#5f5af6] hover:to-[#805cf6] text-white font-bold py-3 rounded-xl shadow-lg transition duration-150">
                 認証する
             </button>
         </div>
     </div>
 
+    <!-- メインアプリケーションコンテンツ (ダークテーマ仕様) -->
     <div id="main-app-content" class="hidden flex-col min-h-screen">
-        <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <header class="bg-[#111827] border-b border-slate-800 sticky top-0 z-40 shadow-md">
             <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="p-2 bg-indigo-600 text-white rounded-lg shadow-md shadow-indigo-100">
+                    <div class="p-2 bg-gradient-to-r from-indigo-500 to-violet-600 text-white rounded-lg shadow-md">
                         <i data-lucide="graduation-cap" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h1 class="font-bold text-lg text-slate-900 tracking-tight">原点（一問一答）</h1>
-                        <p class="text-xs text-slate-500 font-medium">知識分野 最速暗記システム</p>
+                        <h1 class="font-bold text-base sm:text-lg text-white tracking-tight">原点（一問一答）</h1>
+                        <p class="text-[10px] sm:text-xs text-slate-400 font-medium">知識分野 最速暗記システム</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-2 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-xs text-emerald-700 font-semibold">
+                <div class="flex items-center space-x-2 bg-emerald-950/40 border border-emerald-900/50 px-3 py-1 rounded-full text-[10px] sm:text-xs text-emerald-400 font-semibold">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>オンライン学習モード</span>
                 </div>
@@ -64,64 +81,73 @@
 
         <main class="flex-grow max-w-4xl w-full mx-auto p-4 flex flex-col justify-start">
             
+            <!-- ポータル画面 -->
             <div id="page-portal" class="space-y-6 fade-in">
-                <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-6 text-white shadow-xl shadow-indigo-100">
+                <!-- ウェルカムバナー -->
+                <div class="bg-gradient-to-r from-[#1e1b4b] via-[#111827] to-[#1e1b4b] border border-indigo-950 rounded-2xl p-6 text-white shadow-xl">
                     <div class="space-y-2">
-                        <h2 class="text-2xl font-bold">隙間時間で重要単元を完全攻略！</h2>
-                        <p class="text-indigo-100 text-sm max-w-2xl">教科と単元を選んで「順番に解く」または「ランダムに解く」から学習を開始しましょう。覚えたかどうかの自己評価でサクサク進められます。</p>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white bg-gradient-to-r from-indigo-200 to-white bg-clip-text text-transparent">隙間時間で重要単元を完全攻略！</h2>
+                        <p class="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed">教科と単元を選んで「順番に解く」または「ランダムに解く」から学習を開始しましょう。覚えたかどうかの自己評価でサクサク進められます。</p>
                     </div>
                 </div>
 
+                <!-- メイン選択エリア -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="md:col-span-2 space-y-6">
-                        <div id="selection-anchor" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
-                            <div class="pb-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div id="selection-anchor" class="bg-[#111827] rounded-2xl p-6 border border-slate-800 shadow-xl space-y-6">
+                            <div class="pb-3 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                 <div class="flex items-center space-x-2">
-                                    <i data-lucide="book-open" class="w-5 h-5 text-indigo-600"></i>
-                                    <h3 class="font-bold text-slate-900 text-lg">学習メニューを選択</h3>
+                                    <i data-lucide="book-open" class="w-5 h-5 text-indigo-400"></i>
+                                    <h3 class="font-bold text-white text-base sm:text-lg">学習メニューを選択</h3>
                                 </div>
-                                <span id="total-questions-badge" class="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-semibold">
+                                <span id="total-questions-badge" class="text-xs bg-indigo-950/60 text-indigo-300 border border-indigo-900/50 px-2.5 py-1 rounded-full font-semibold">
                                     全 10 教科対応
                                 </span>
                             </div>
 
+                            <!-- 1. 教科を選ぶ -->
                             <div>
-                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">1. 教科を選ぶ</h4>
+                                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">1. 教科を選ぶ</h4>
                                 <div id="subject-cards-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    <!-- 動的にレンダリング -->
                                 </div>
                             </div>
 
-                            <div id="loading-indicator" class="hidden flex items-center justify-center space-x-3 p-6 bg-slate-50 border border-dashed border-slate-200 rounded-xl">
-                                <div class="w-6 h-6 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-                                <span class="text-sm font-semibold text-indigo-700">問題データを読み込んでいます...</span>
+                            <!-- ローディング -->
+                            <div id="loading-indicator" class="hidden flex items-center justify-center space-x-3 p-6 bg-[#1a2333]/50 border border-dashed border-slate-700 rounded-xl">
+                                <div class="w-6 h-6 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                                <span class="text-sm font-semibold text-indigo-300">問題データを読み込んでいます...</span>
                             </div>
 
+                            <!-- 2. 単元を選ぶ -->
                             <div id="unit-selection-section" class="hidden space-y-3">
-                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">2. 単元を選ぶ</h4>
-                                <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                                    <div class="flex items-center mb-3 pb-2 border-b border-slate-200">
-                                        <input type="checkbox" id="checkbox-all-units" onchange="toggleSelectAllUnits(this)" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
-                                        <label for="checkbox-all-units" class="ml-2.5 text-sm font-semibold text-slate-700 cursor-pointer select-none">全ての単元を選択</label>
+                                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">2. 単元を選ぶ</h4>
+                                <div class="bg-[#1a2333]/50 rounded-xl p-4 border border-slate-800">
+                                    <div class="flex items-center mb-3 pb-2 border-b border-slate-800">
+                                        <input type="checkbox" id="checkbox-all-units" onchange="toggleSelectAllUnits(this)" class="w-4 h-4 text-indigo-600 border-slate-700 bg-[#111827] rounded focus:ring-indigo-500">
+                                        <label for="checkbox-all-units" class="ml-2.5 text-sm font-semibold text-slate-300 cursor-pointer select-none">全ての単元を選択</label>
                                     </div>
                                     <div id="unit-checkboxes-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[220px] overflow-y-auto pr-1">
+                                        <!-- 動的にレンダリング -->
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="play-settings-section" class="hidden pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <!-- 設定・スタート -->
+                            <div id="play-settings-section" class="hidden pt-4 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                 <div class="flex items-center gap-4">
-                                    <span class="text-sm font-bold text-slate-700">出題順序:</span>
-                                    <div class="inline-flex rounded-lg p-1 bg-slate-100">
-                                        <button onclick="setPlayMode('sequential')" id="btn-mode-seq" class="px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-white text-indigo-600 shadow-sm">
+                                    <span class="text-sm font-bold text-slate-400">出題順序:</span>
+                                    <div class="inline-flex rounded-lg p-1 bg-[#1a2333]">
+                                        <button onclick="setPlayMode('sequential')" id="btn-mode-seq" class="px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-[#111827] text-white shadow-sm">
                                             順番に解く
                                         </button>
-                                        <button onclick="setPlayMode('random')" id="btn-mode-rand" class="px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-600 hover:text-slate-900">
+                                        <button onclick="setPlayMode('random')" id="btn-mode-rand" class="px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-400 hover:text-white">
                                             ランダムに解く
                                         </button>
                                     </div>
                                 </div>
 
-                                <button onclick="startSession()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-indigo-100 transition duration-200 flex items-center justify-center gap-2">
+                                <button onclick="startSession()" class="w-full sm:w-auto bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] hover:from-[#5f5af6] hover:to-[#805cf6] text-white font-bold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-indigo-500/20 transition duration-200 flex items-center justify-center gap-2">
                                     <span>学習スタート</span>
                                     <i data-lucide="arrow-right" class="w-5 h-5"></i>
                                 </button>
@@ -129,27 +155,30 @@
                         </div>
                     </div>
 
+                    <!-- サイドバー（過去の学習記録・コツ） -->
                     <div class="space-y-6">
-                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col min-h-[380px]">
-                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                        <div class="bg-[#111827] rounded-2xl p-6 border border-slate-800 shadow-xl flex flex-col min-h-[380px]">
+                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
                                 <div class="flex items-center space-x-2">
-                                    <i data-lucide="history" class="w-5 h-5 text-indigo-600"></i>
-                                    <h3 class="font-bold text-slate-900">過去10回の学習記録</h3>
+                                    <i data-lucide="history" class="w-5 h-5 text-indigo-400"></i>
+                                    <h3 class="font-bold text-white text-sm sm:text-base">過去10回の学習記録</h3>
                                 </div>
-                                <button onclick="clearRecords()" class="text-xs text-rose-500 hover:text-rose-700 font-medium flex items-center gap-1">
+                                <button onclick="clearRecords()" class="text-xs text-rose-400 hover:text-rose-300 font-medium flex items-center gap-1 transition">
                                     <i data-lucide="trash-2" class="w-3 h-3"></i> 消去
                                 </button>
                             </div>
 
                             <div id="record-list-container" class="flex-grow overflow-y-auto max-h-[300px] space-y-3 pr-1">
+                                <!-- 動的にレンダリング -->
                             </div>
                         </div>
 
-                        <div class="bg-indigo-50 rounded-2xl p-5 border border-indigo-100">
-                            <h4 class="font-bold text-indigo-900 text-sm flex items-center gap-1.5 mb-2">
-                                <i data-lucide="help-circle" class="w-4 h-4 text-indigo-600"></i> 暗記のコツ
+                        <!-- 暗記のコツ -->
+                        <div class="bg-indigo-950/30 rounded-2xl p-5 border border-indigo-900/40">
+                            <h4 class="font-bold text-indigo-300 text-sm flex items-center gap-1.5 mb-2">
+                                <i data-lucide="help-circle" class="w-4 h-4 text-indigo-400"></i> 暗記のコツ
                             </h4>
-                            <ul class="text-xs text-indigo-800 space-y-1.5 list-disc list-inside leading-relaxed">
+                            <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
                                 <li>「順番に解く」で各キーワードの文脈をインプット。</li>
                                 <li>「ランダムに解く」で本試験での柔軟な連想力を強化。</li>
                                 <li>答えを見る前に頭の中で思い浮かべ、声に出すと効果的！</li>
@@ -159,57 +188,63 @@
                 </div>
             </div>
 
+            <!-- 学習中画面 -->
             <div id="page-study" class="hidden flex-grow flex flex-col justify-between max-w-2xl w-full mx-auto space-y-6 fade-in">
-                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
-                    <button onclick="exitSessionConfirm()" class="text-slate-500 hover:text-slate-800 font-semibold text-sm flex items-center gap-1 transition">
+                <div class="bg-[#111827] rounded-2xl p-4 border border-slate-800 shadow-lg flex items-center justify-between">
+                    <button onclick="exitSessionConfirm()" class="text-slate-400 hover:text-white font-semibold text-sm flex items-center gap-1 transition">
                         <i data-lucide="chevron-left" class="w-4 h-4"></i> 終了
                     </button>
-                    <div class="flex items-center space-x-4 text-xs font-bold text-slate-500">
-                        <span id="study-subject-badge" class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-md">---</span>
-                        <span id="study-progress-text">0 / 0 問</span>
+                    <div class="flex items-center space-x-3 text-xs font-bold">
+                        <span id="study-subject-badge" class="bg-indigo-950/80 text-indigo-300 border border-indigo-900/60 px-2.5 py-1 rounded-md">---</span>
+                        <span id="study-progress-text" class="text-slate-400">0 / 0 問</span>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-100 overflow-hidden flex-grow flex flex-col justify-between min-h-[340px]">
-                    <div class="w-full bg-slate-100 h-1.5 overflow-hidden">
-                        <div id="study-progress-bar" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
+                <!-- 質問カード本体 -->
+                <div class="bg-[#111827] rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex-grow flex flex-col justify-between min-h-[360px]">
+                    <!-- 上部プログレスバー -->
+                    <div class="w-full bg-[#1f2937] h-1.5 overflow-hidden">
+                        <div id="study-progress-bar" class="bg-gradient-to-r from-indigo-500 to-violet-500 h-full w-0 transition-all duration-300"></div>
                     </div>
 
+                    <!-- 問題エリア -->
                     <div class="p-6 sm:p-8 flex-grow flex flex-col justify-center items-center text-center space-y-6">
                         <div class="space-y-1">
-                            <span id="study-unit-badge" class="text-xs font-bold text-indigo-500 uppercase tracking-wider bg-indigo-50/50 px-2 py-0.5 rounded">---</span>
+                            <span id="study-unit-badge" class="text-xs font-bold text-indigo-300 uppercase tracking-wider bg-indigo-950/40 border border-indigo-900/30 px-2.5 py-0.5 rounded">---</span>
                         </div>
-                        <p id="study-question-text" class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed max-w-xl">
+                        <p id="study-question-text" class="text-lg sm:text-xl font-bold text-white leading-relaxed max-w-xl">
                             問題文がここに表示されます。
                         </p>
                     </div>
 
-                    <div id="answer-reveal-area" class="hidden border-t border-slate-100 bg-slate-50/70 p-6 sm:p-8 space-y-4">
+                    <!-- 答え・解説エリア (ダークテーマ版) -->
+                    <div id="answer-reveal-area" class="hidden border-t border-slate-800 bg-[#161f30]/60 p-6 sm:p-8 space-y-4">
                         <div class="flex items-center justify-center space-x-2">
-                            <div id="correct-answer-icon" class="p-1.5 bg-indigo-500 text-white rounded-full flex items-center justify-center">
+                            <div id="correct-answer-icon" class="p-1.5 bg-indigo-600 text-white rounded-full flex items-center justify-center">
                                 <i data-lucide="key" class="w-5 h-5"></i>
                             </div>
-                            <span id="correct-answer-text" class="text-xl font-black tracking-wide text-indigo-600">--</span>
+                            <span id="correct-answer-text" class="text-xl font-black tracking-wide text-indigo-400">--</span>
                         </div>
-                        <div class="max-w-xl mx-auto bg-white border border-slate-200/60 rounded-xl p-4 shadow-sm">
-                            <p id="study-explanation-text" class="text-sm text-slate-600 leading-relaxed text-left">
-                                
+                        <div class="max-w-xl mx-auto bg-[#111827] border border-slate-800 rounded-xl p-4 shadow-md">
+                            <p id="study-explanation-text" class="text-sm text-slate-300 leading-relaxed text-left">
+                                <!-- 解説テキスト -->
                             </p>
                         </div>
                     </div>
 
-                    <div class="p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-center gap-4">
-                        <button id="btn-show-answer" onclick="revealAnswer()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-slate-200 transition duration-150 flex items-center justify-center gap-2">
+                    <!-- 下部コントロール -->
+                    <div class="p-6 bg-[#161f30]/30 border-t border-slate-800 flex items-center justify-center gap-4">
+                        <button id="btn-show-answer" onclick="revealAnswer()" class="w-full bg-slate-100 hover:bg-white text-slate-900 font-bold py-4 rounded-xl shadow-lg transition duration-150 flex items-center justify-center gap-2">
                             <i data-lucide="eye" class="w-5 h-5"></i>
                             <span>答えを見る</span>
                         </button>
 
                         <div id="feedback-buttons-group" class="hidden w-full grid grid-cols-2 gap-4">
-                            <button onclick="submitFeedback(true)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-md shadow-emerald-100 transition duration-150 flex items-center justify-center gap-2">
+                            <button onclick="submitFeedback(true)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-950/30 transition duration-150 flex items-center justify-center gap-2">
                                 <i data-lucide="check-circle" class="w-5 h-5"></i>
                                 <span>できた</span>
                             </button>
-                            <button onclick="submitFeedback(false)" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-xl shadow-md shadow-rose-100 transition duration-150 flex items-center justify-center gap-2">
+                            <button onclick="submitFeedback(false)" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-rose-950/30 transition duration-150 flex items-center justify-center gap-2">
                                 <i data-lucide="help-circle" class="w-5 h-5"></i>
                                 <span>できなかった</span>
                             </button>
@@ -220,34 +255,35 @@
                 <div class="h-2"></div>
             </div>
 
-            <div id="page-result" class="hidden max-w-md w-full mx-auto bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 text-center space-y-6 shadow-xl shadow-slate-100 fade-in">
-                <div class="inline-flex p-4 bg-indigo-50 text-indigo-600 rounded-2xl shadow-inner">
+            <!-- 結果発表画面 (ダークテーマ版) -->
+            <div id="page-result" class="hidden max-w-md w-full mx-auto bg-[#111827] border border-slate-800 rounded-3xl p-6 sm:p-8 text-center space-y-6 shadow-2xl fade-in">
+                <div class="inline-flex p-4 bg-indigo-950/50 text-indigo-400 border border-indigo-900/50 rounded-2xl shadow-inner">
                     <i data-lucide="trophy" class="w-10 h-10"></i>
                 </div>
                 
                 <div class="space-y-1">
-                    <h3 class="text-xl font-bold text-slate-900">演習が完了しました！</h3>
+                    <h3 class="text-xl font-bold text-white">演習が完了しました！</h3>
                     <p class="text-xs text-slate-400 font-medium" id="result-datetime-label">----/--/-- --:--</p>
                 </div>
 
-                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 grid grid-cols-2 divide-x divide-slate-200">
+                <div class="bg-[#1a2333]/40 border border-slate-800 rounded-2xl p-4 grid grid-cols-2 divide-x divide-slate-800">
                     <div class="space-y-1">
-                        <span class="text-xs font-bold text-slate-400 block uppercase">できた割合</span>
-                        <span id="result-accuracy-pct" class="text-2xl font-black text-indigo-600">0%</span>
+                        <span class="text-xs font-bold text-slate-500 block uppercase">できた割合</span>
+                        <span id="result-accuracy-pct" class="text-2xl font-black text-indigo-400">0%</span>
                     </div>
                     <div class="space-y-1">
-                        <span class="text-xs font-bold text-slate-400 block uppercase">できた / 出題数</span>
-                        <span id="result-score-ratio" class="text-lg font-bold text-slate-700 block mt-1">0 / 0</span>
+                        <span class="text-xs font-bold text-slate-500 block uppercase">できた / 出題数</span>
+                        <span id="result-score-ratio" class="text-lg font-bold text-slate-300 block mt-1">0 / 0</span>
                     </div>
                 </div>
 
-                <div class="text-xs font-semibold text-slate-500 bg-slate-50/50 p-2.5 rounded-lg border border-dashed border-slate-200 text-left space-y-1">
-                    <div><span class="text-slate-400">対象教科:</span> <span id="result-subject-text" class="text-slate-700">---</span></div>
-                    <div class="truncate"><span class="text-slate-400">対象単元:</span> <span id="result-units-text" class="text-slate-700">---</span></div>
+                <div class="text-xs font-semibold text-slate-400 bg-[#161f30]/40 p-2.5 rounded-lg border border-dashed border-slate-800 text-left space-y-1">
+                    <div><span class="text-slate-500">対象教科:</span> <span id="result-subject-text" class="text-slate-300">---</span></div>
+                    <div class="truncate"><span class="text-slate-500">対象単元:</span> <span id="result-units-text" class="text-slate-300">---</span></div>
                 </div>
 
                 <div class="pt-2 space-y-3">
-                    <button onclick="backToPortal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-md transition duration-150">
+                    <button onclick="backToPortal()" class="w-full bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] hover:from-[#5f5af6] hover:to-[#805cf6] text-white font-bold py-3.5 rounded-xl shadow-md transition duration-150">
                         ポータルに戻る
                     </button>
                 </div>
@@ -256,22 +292,24 @@
         </main>
     </div>
 
-    <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-100 space-y-4 fade-in">
-            <h4 id="modal-title" class="font-bold text-slate-900 text-lg">確認</h4>
-            <p id="modal-message" class="text-sm text-slate-500 leading-relaxed">学習を終了します。</p>
+    <!-- カスタム確認モーダル (ダークテーマ版) -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-[#060911]/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#111827] rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-800 space-y-4 fade-in">
+            <h4 id="modal-title" class="font-bold text-white text-lg">確認</h4>
+            <p id="modal-message" class="text-sm text-slate-400 leading-relaxed">学習を終了します。</p>
             <div class="flex items-center justify-end space-x-3 pt-2">
-                <button id="modal-btn-cancel" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 rounded-lg transition">
+                <button id="modal-btn-cancel" class="px-4 py-2 text-sm font-semibold text-slate-400 hover:text-white rounded-lg transition">
                     キャンセル
                 </button>
-                <button id="modal-btn-confirm" class="px-4 py-2 text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white rounded-lg shadow-sm transition">
+                <button id="modal-btn-confirm" class="px-4 py-2 text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white rounded-lg shadow-md transition">
                     終了する
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="toast-banner" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg flex items-center space-x-2 fade-in">
+    <!-- トースト通知 (ダークテーマ版) -->
+    <div id="toast-banner" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 border border-slate-800 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-2 fade-in">
         <i data-lucide="info" class="w-4 h-4 text-indigo-400 shrink-0"></i>
         <span id="toast-message">トースト通知メッセージ</span>
     </div>
@@ -282,16 +320,16 @@
 
         // 科目設定（各英字idが各.jsonファイル名に対応）
         const SUBJECTS_CONFIG = [
-            { id: "seiji",   name: "政治", icon: "landmark", color: "from-blue-500 to-indigo-500" },
-            { id: "keizai",  name: "経済", icon: "trending-up", color: "from-emerald-500 to-teal-500" },
-            { id: "nihonshi", name: "日本史", icon: "hourglass", color: "from-red-500 to-rose-500" },
-            { id: "sekaishi", name: "世界史", icon: "globe", color: "from-cyan-500 to-blue-500" },
-            { id: "chiri",   name: "地理", icon: "map", color: "from-khaki-500 to-lime-600" },
-            { id: "seibutsu", name: "生物", icon: "dna", color: "from-purple-500 to-indigo-500" },
-            { id: "kagaku",  name: "化学", icon: "atom", color: "from-pink-500 to-rose-500" },
-            { id: "chigaku",  name: "地学", icon: "mountain", color: "from-orange-500 to-amber-600" },
-            { id: "butsuri",   name: "物理", icon: "apple", color: "from-amber-500 to-orange-500" },
-            { id: "shisou",   name: "思想", icon: "lightbulb", color: "from-amber-500 to-orange-500" }
+            { id: "seiji",   name: "政治", icon: "landmark" },
+            { id: "keizai",  name: "経済", icon: "trending-up" },
+            { id: "nihonshi", name: "日本史", icon: "hourglass" },
+            { id: "sekaishi", name: "世界史", icon: "globe" },
+            { id: "chiri",   name: "地理", icon: "map" },
+            { id: "seibutsu", name: "生物", icon: "dna" },
+            { id: "kagaku",  name: "化学", icon: "atom" },
+            { id: "chigaku",  name: "地学", icon: "mountain" },
+            { id: "butsuri",   name: "物理", icon: "apple" },
+            { id: "shisou",   name: "思想", icon: "lightbulb" }
         ];
 
         // Global State Memory
@@ -345,7 +383,7 @@
             await prefetchAllSubjectsData();
         }
 
-        // Render Subject Cards to Grid
+        // Render Subject Cards to Grid (ダークテーマデザイン仕様)
         function renderSubjectCards() {
             const container = document.getElementById('subject-cards-container');
             container.innerHTML = "";
@@ -354,17 +392,17 @@
                 const card = document.createElement('button');
                 card.id = `sub-card-${sub.id}`;
                 card.onclick = () => selectSubject(sub.id);
-                card.className = "bg-white border border-slate-200 hover:border-indigo-400 p-4 rounded-xl text-left transition duration-150 shadow-sm hover:shadow flex flex-col justify-between space-y-4 group relative overflow-hidden";
+                card.className = "bg-[#1f2937]/40 border border-slate-800/80 hover:border-indigo-500/50 p-4 rounded-xl text-left transition duration-150 shadow-md flex flex-col justify-between space-y-4 group relative overflow-hidden";
                 
                 card.innerHTML = `
-                    <div class="p-2 bg-slate-50 group-hover:bg-indigo-50 text-slate-700 group-hover:text-indigo-600 rounded-lg w-10 h-10 flex items-center justify-center transition">
+                    <div class="p-2 bg-slate-800/60 group-hover:bg-indigo-950/50 text-slate-400 group-hover:text-indigo-400 rounded-lg w-10 h-10 flex items-center justify-center border border-slate-800 group-hover:border-indigo-900/40 transition">
                         <i data-lucide="${sub.icon || 'book'}" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h5 class="font-bold text-slate-800 text-sm tracking-tight">${sub.name}</h5>
-                        <p id="sub-count-badge-${sub.id}" class="text-[10px] text-slate-400 font-medium mt-0.5">未読込み</p>
+                        <h5 class="font-bold text-slate-300 group-hover:text-white text-sm tracking-tight transition">${sub.name}</h5>
+                        <p id="sub-count-badge-${sub.id}" class="text-[10px] text-slate-500 font-medium mt-0.5">未読込み</p>
                     </div>
-                    <div class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 text-indigo-500 transition duration-150">
+                    <div class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 text-indigo-400 transition duration-150">
                         <i data-lucide="chevron-right" class="w-4 h-4"></i>
                     </div>
                 `;
@@ -399,7 +437,7 @@
             showToast("すべての問題データを自動読込みしました");
         }
 
-        // Subject Card Selection Logic
+        // Subject Card Selection Logic (アクティブ時デザインの適用)
         function selectSubject(subjectId) {
             selectedSubjectId = subjectId;
 
@@ -407,11 +445,12 @@
                 const card = document.getElementById(`sub-card-${s.id}`);
                 if (!card) return;
                 if (s.id === subjectId) {
-                    card.classList.remove('bg-white', 'border-slate-200');
-                    card.classList.add('bg-indigo-50/50', 'border-indigo-500', 'ring-2', 'ring-indigo-100');
+                    // 選択されたカードは輝くネオン系の紫・青色に
+                    card.classList.remove('bg-[#1f2937]/40', 'border-slate-800/80');
+                    card.classList.add('bg-gradient-to-r', 'from-[#4f46e5]/20', 'to-[#7c3aed]/20', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
                 } else {
-                    card.classList.remove('bg-indigo-50/50', 'border-indigo-500', 'ring-2', 'ring-indigo-100');
-                    card.classList.add('bg-white', 'border-slate-200');
+                    card.classList.remove('bg-gradient-to-r', 'from-[#4f46e5]/20', 'to-[#7c3aed]/20', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+                    card.classList.add('bg-[#1f2937]/40', 'border-slate-800/80');
                 }
             });
 
@@ -432,7 +471,7 @@
             const uniqueUnits = Object.keys(unitMap);
 
             if (uniqueUnits.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 p-2">該当データがありません。</p>`;
+                container.innerHTML = `<p class="text-xs text-slate-500 p-2">該当データがありません。</p>`;
                 document.getElementById('unit-selection-section').classList.add('hidden');
                 document.getElementById('play-settings-section').classList.add('hidden');
                 return;
@@ -441,14 +480,14 @@
             uniqueUnits.forEach((uName, idx) => {
                 const qCount = unitMap[uName];
                 const wrapper = document.createElement('div');
-                wrapper.className = "flex items-center justify-between p-2 hover:bg-white rounded-lg transition border border-transparent hover:border-slate-200/60";
+                wrapper.className = "flex items-center justify-between p-2 hover:bg-[#111827] rounded-lg transition border border-transparent hover:border-slate-850";
                 
                 wrapper.innerHTML = `
                     <div class="flex items-center">
-                        <input type="checkbox" id="chk-unit-${idx}" value="${uName}" checked onchange="syncSelectedUnitsState()" class="unit-individual-checkbox w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
-                        <label for="chk-unit-${idx}" class="ml-2.5 text-xs font-bold text-slate-700 cursor-pointer select-none truncate max-w-[180px]">${uName}</label>
+                        <input type="checkbox" id="chk-unit-${idx}" value="${uName}" checked onchange="syncSelectedUnitsState()" class="unit-individual-checkbox w-4 h-4 text-indigo-500 border-slate-700 bg-[#111827] rounded focus:ring-indigo-500">
+                        <label for="chk-unit-${idx}" class="ml-2.5 text-xs font-bold text-slate-300 cursor-pointer select-none truncate max-w-[180px]">${uName}</label>
                     </div>
-                    <span class="text-[10px] font-bold text-slate-400 bg-slate-200/50 px-1.5 py-0.5 rounded-full">${qCount}題</span>
+                    <span class="text-[10px] font-bold text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded-full">${qCount}題</span>
                 `;
                 container.appendChild(wrapper);
             });
@@ -486,11 +525,11 @@
             const randBtn = document.getElementById('btn-mode-rand');
 
             if (mode === 'sequential') {
-                seqBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-white text-indigo-600 shadow-sm";
-                randBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-600 hover:text-slate-900";
+                seqBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-[#111827] text-white shadow-sm";
+                randBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-400 hover:text-white";
             } else {
-                randBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-white text-indigo-600 shadow-sm";
-                seqBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-600 hover:text-slate-900";
+                randBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-[#111827] text-white shadow-sm";
+                seqBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-400 hover:text-white";
             }
         }
 
@@ -561,13 +600,13 @@
             const explText = document.getElementById('study-explanation-text');
 
             // ○×の形式にとらわれず、設定された答えを直接きれいに表示
-            answerIcon.className = "p-1.5 bg-indigo-500 text-white rounded-full flex items-center justify-center shrink-0";
+            answerIcon.className = "p-1.5 bg-indigo-600 text-white rounded-full flex items-center justify-center shrink-0";
             answerIcon.innerHTML = `<i data-lucide="key" class="w-5 h-5"></i>`;
             
             answerText.textContent = currentQ.answer || "---";
-            answerText.className = "text-xl font-black tracking-wide text-indigo-600 break-words";
+            answerText.className = "text-xl font-black tracking-wide text-indigo-400 break-words";
 
-            explText.textContent = currentQ.explanation || "覚えていたら「できた」いなかったら「できなかった」をタップ";
+            explText.textContent = currentQ.explanation || "この問題に解説テキストはありません。";
             
             lucide.createIcons();
 
@@ -662,9 +701,9 @@
 
             if (pastRecords.length === 0) {
                 container.innerHTML = `
-                    <div class="h-full flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-slate-100 rounded-xl bg-slate-50/50">
-                        <i data-lucide="bar-chart-2" class="w-8 h-8 text-slate-300 mb-2"></i>
-                        <p class="text-xs font-semibold text-slate-400">学習履歴はありません</p>
+                    <div class="h-full flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-slate-800 rounded-xl bg-slate-900/50">
+                        <i data-lucide="bar-chart-2" class="w-8 h-8 text-slate-600 mb-2"></i>
+                        <p class="text-xs font-semibold text-slate-500">学習履歴はありません</p>
                     </div>
                 `;
                 lucide.createIcons();
@@ -673,19 +712,19 @@
 
             pastRecords.forEach(rec => {
                 const item = document.createElement('div');
-                item.className = "p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between text-xs transition hover:bg-slate-100/40";
+                item.className = "p-3 bg-[#1f2937]/30 border border-slate-800/80 rounded-xl flex items-center justify-between text-xs transition hover:bg-[#1f2937]/60";
                 
-                let perfColor = "text-rose-600 bg-rose-50 border-rose-100";
-                if (rec.accuracy >= 80) perfColor = "text-emerald-700 bg-emerald-50 border-emerald-100";
-                else if (rec.accuracy >= 50) perfColor = "text-amber-700 bg-amber-50 border-amber-100";
+                let perfColor = "text-rose-400 bg-rose-950/40 border-rose-900/50";
+                if (rec.accuracy >= 80) perfColor = "text-emerald-400 bg-emerald-950/40 border-emerald-900/50";
+                else if (rec.accuracy >= 50) perfColor = "text-amber-400 bg-amber-950/40 border-amber-900/50";
 
                 item.innerHTML = `
                     <div class="space-y-0.5 truncate max-w-[140px]">
-                        <span class="font-black text-slate-800 block truncate">${rec.subject}</span>
-                        <span class="text-[10px] text-slate-400 font-medium block">${rec.timestamp}</span>
+                        <span class="font-black text-slate-200 block truncate">${rec.subject}</span>
+                        <span class="text-[10px] text-slate-500 font-medium block">${rec.timestamp}</span>
                     </div>
                     <div class="flex items-center space-x-3 shrink-0">
-                        <span class="text-slate-500 font-bold">${rec.correct}/${rec.total}問</span>
+                        <span class="text-slate-400 font-bold">${rec.correct}/${rec.total}問</span>
                         <span class="px-2 py-0.5 rounded-full font-black text-[10px] border ${perfColor}">${rec.accuracy}%</span>
                     </div>
                 `;
@@ -718,11 +757,11 @@
 
             toastMsg.textContent = message;
             if (isError) {
-                toast.classList.remove('bg-slate-900');
-                toast.classList.add('bg-rose-600');
+                toast.classList.remove('bg-slate-900', 'border-slate-800');
+                toast.classList.add('bg-rose-950', 'border-rose-900');
             } else {
-                toast.classList.remove('bg-rose-600');
-                toast.classList.add('bg-slate-900');
+                toast.classList.remove('bg-rose-950', 'border-rose-900');
+                toast.classList.add('bg-slate-900', 'border-slate-800');
             }
 
             toast.classList.remove('hidden');
