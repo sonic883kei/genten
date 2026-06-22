@@ -561,20 +561,7 @@
 
             const isO = (String(currentQ.answer).trim() === "○" || String(currentQ.answer).trim() === "1" || String(currentQ.answer).toLowerCase() === "true");
             
-            if (isO) {
-                answerIcon.className = "p-1.5 bg-emerald-500 text-white rounded-full flex items-center justify-center";
-                answerIcon.innerHTML = `<i data-lucide="circle" class="w-6 h-6 stroke-[3]"></i>`;
-                answerText.textContent = "正しい（○）";
-                answerText.className = "text-xl font-black tracking-wide text-emerald-600";
-            } else {
-                answerIcon.className = "p-1.5 bg-rose-500 text-white rounded-full flex items-center justify-center";
-                answerIcon.innerHTML = `<i data-lucide="x" class="w-6 h-6 stroke-[3]"></i>`;
-                answerText.textContent = "誤り（×）";
-                answerText.className = "text-xl font-black tracking-wide text-rose-600";
-            }
-
-            explText.textContent = currentQ.explanation || "この問題に解説テキストはありません。";
-            
+         
             lucide.createIcons();
 
             answerArea.classList.remove('hidden');
