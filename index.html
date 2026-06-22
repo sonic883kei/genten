@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>一問一答（原点）</title>
-    <!-- Tailwind CSS for rich modern UI -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons for high quality visuals -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -26,7 +23,6 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
-    <!-- Header -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
         <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -34,11 +30,10 @@
                     <i data-lucide="graduation-cap" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg text-slate-900 tracking-tight">原点（一問一答）</h1>
+                    <h1 class="font-bold text-lg text-slate-900 tracking-tight">原点（一問一答問題集）</h1>
                     <p class="text-xs text-slate-500 font-medium">知識分野 最速暗記システム</p>
                 </div>
             </div>
-            <!-- Version / Info Badge -->
             <div class="flex items-center space-x-2 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-xs text-emerald-700 font-semibold">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>オンライン学習モード</span>
@@ -46,27 +41,18 @@
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="flex-grow max-w-4xl w-full mx-auto p-4 flex flex-col justify-start">
         
-        <!-- ================= PAGE 1: PORTAL / DASHBOARD ================= -->
         <div id="page-portal" class="space-y-6 fade-in">
-            <!-- Summary Banner -->
-            <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-6 text-white shadow-xl shadow-indigo-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-6 text-white shadow-xl shadow-indigo-100">
                 <div class="space-y-2">
                     <h2 class="text-2xl font-bold">隙間時間で重要単元を完全攻略！</h2>
-                    <p class="text-indigo-100 text-sm max-w-lg">教科と単元を選んで「順番に解く」または「ランダムに解く」から学習を開始しましょう。</p>
+                    <p class="text-indigo-100 text-sm max-w-2xl">教科と単元を選んで「順番に解く」または「ランダムに解く」から学習を開始しましょう。間違えた問題は自動カウントされます。</p>
                 </div>
-                <button onclick="scrollToSelection()" class="bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-5 py-3 rounded-xl transition duration-200 shadow-md text-sm shrink-0 flex items-center justify-center gap-2">
-                    <i data-lucide="play" class="w-4 h-4 fill-current"></i> 学習を始める
-                </button>
             </div>
 
-            <!-- Dashboard Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Column 1 & 2: Menu & Settings -->
                 <div class="md:col-span-2 space-y-6">
-                    <!-- Subject Selection Area -->
                     <div id="selection-anchor" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
                         <div class="pb-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div class="flex items-center space-x-2">
@@ -74,41 +60,33 @@
                                 <h3 class="font-bold text-slate-900 text-lg">学習メニューを選択</h3>
                             </div>
                             <span id="total-questions-badge" class="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-semibold">
-                                全 9 教科対応
+                                全 10 教科対応
                             </span>
                         </div>
 
-                        <!-- Subject Grid (Cards) -->
                         <div>
                             <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">1. 教科を選ぶ</h4>
                             <div id="subject-cards-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                <!-- Dynamic Cards -->
-                            </div>
+                                </div>
                         </div>
 
-                        <!-- Loading Indicator -->
                         <div id="loading-indicator" class="hidden flex items-center justify-center space-x-3 p-6 bg-slate-50 border border-dashed border-slate-200 rounded-xl">
                             <div class="w-6 h-6 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
                             <span class="text-sm font-semibold text-indigo-700">問題データを読み込んでいます...</span>
                         </div>
 
-                        <!-- Unit selection grid -->
                         <div id="unit-selection-section" class="hidden space-y-3">
                             <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">2. 単元を選ぶ</h4>
                             <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                                <!-- Select all checkbox -->
                                 <div class="flex items-center mb-3 pb-2 border-b border-slate-200">
                                     <input type="checkbox" id="checkbox-all-units" onchange="toggleSelectAllUnits(this)" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
                                     <label for="checkbox-all-units" class="ml-2 text-sm font-semibold text-slate-700 cursor-pointer select-none">全ての単元を選択</label>
                                 </div>
-                                <!-- Individual Units -->
                                 <div id="unit-checkboxes-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[220px] overflow-y-auto pr-1">
-                                    <!-- Dynamic unit list -->
-                                </div>
+                                    </div>
                             </div>
                         </div>
 
-                        <!-- Mode Select & Play Button -->
                         <div id="play-settings-section" class="hidden pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div class="flex items-center gap-4">
                                 <span class="text-sm font-bold text-slate-700">出題順序:</span>
@@ -130,9 +108,7 @@
                     </div>
                 </div>
 
-                <!-- Column 3: Stats & Records -->
                 <div class="space-y-6">
-                    <!-- Study Records -->
                     <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col min-h-[380px]">
                         <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
                             <div class="flex items-center space-x-2">
@@ -144,17 +120,13 @@
                             </button>
                         </div>
 
-                        <!-- Record List Container -->
                         <div id="record-list-container" class="flex-grow overflow-y-auto max-h-[300px] space-y-3 pr-1">
-                            <!-- Dynamic Records will be inserted here -->
-                        </div>
+                            </div>
                     </div>
 
-                    <!-- Usage Tips -->
                     <div class="bg-indigo-50 rounded-2xl p-5 border border-indigo-100">
                         <h4 class="font-bold text-indigo-900 text-sm flex items-center gap-1.5 mb-2">
-                            <i data-lucide="help-circle" class="w-4 h-4 text-indigo-600"></i>
-                            暗記のコツ
+                            <i data-lucide="help-circle" class="w-4 h-4 text-indigo-600"></i> 暗記のコツ
                         </h4>
                         <ul class="text-xs text-indigo-800 space-y-1.5 list-disc list-inside leading-relaxed">
                             <li>「順番に解く」で各キーワードの文脈をインプット。</li>
@@ -166,771 +138,561 @@
             </div>
         </div>
 
-        <!-- ================= PAGE 2: STUDYING SESSION ================= -->
         <div id="page-study" class="hidden flex-grow flex flex-col justify-between max-w-2xl w-full mx-auto space-y-6 fade-in">
-            <!-- Session Stats Header -->
             <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
                 <button onclick="exitSessionConfirm()" class="text-slate-500 hover:text-slate-800 font-semibold text-sm flex items-center gap-1 transition">
-                    <i data-lucide="chevron-left" class="w-4 h-4"></i> 戻る
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i> 終了
                 </button>
-                <div class="text-center">
-                    <span id="study-header-subject" class="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">憲法</span>
-                </div>
-                <div class="text-right text-xs font-bold text-slate-500">
-                    進行度: <span id="study-progress-text" class="text-slate-800">1 / 10</span>
+                <div class="flex items-center space-x-4 text-xs font-bold text-slate-500">
+                    <span id="study-subject-badge" class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-md">---</span>
+                    <span id="study-progress-text">0 / 0 問</span>
                 </div>
             </div>
 
-            <!-- Progress Bar -->
-            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                <div id="study-progress-bar" class="bg-indigo-600 h-full transition-all duration-300" style="width: 10%"></div>
-            </div>
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-100 overflow-hidden flex-grow flex flex-col justify-between min-h-[340px]">
+                <div class="w-full bg-slate-100 h-1.5 overflow-hidden">
+                    <div id="study-progress-bar" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
+                </div>
 
-            <!-- Main Flashcard Container -->
-            <div class="flex-grow flex flex-col justify-center my-4">
-                <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden min-h-[340px] flex flex-col transition duration-300">
-                    
-                    <!-- Card Top Area (Unit label) -->
-                    <div class="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-                        <span id="study-card-unit" class="text-xs font-bold text-slate-500 tracking-wider">単元: 三権分立</span>
-                        <div class="flex items-center space-x-1.5 text-xs text-slate-400 font-semibold">
-                            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                            <span id="study-timer">00:00</span>
-                        </div>
+                <div class="p-6 sm:p-8 flex-grow flex flex-col justify-center items-center text-center space-y-6">
+                    <div class="space-y-1">
+                        <span id="study-unit-badge" class="text-xs font-bold text-indigo-500 uppercase tracking-wider bg-indigo-50/50 px-2 py-0.5 rounded">---</span>
                     </div>
+                    <p id="study-question-text" class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed max-w-xl">
+                        問題文がここに表示されます。
+                    </p>
+                </div>
 
-                    <!-- Card Body (Question or Answer display) -->
-                    <div class="p-8 flex-grow flex flex-col justify-center items-center text-center space-y-6">
-                        <!-- Question Area -->
-                        <div class="space-y-2 w-full">
-                            <span class="text-xs font-bold text-indigo-500 uppercase tracking-widest block">QUESTION</span>
-                            <p id="study-question-text" class="text-lg md:text-xl font-bold text-slate-800 leading-relaxed max-w-lg mx-auto">
-                                質問がここに表示されます。
-                            </p>
-                        </div>
-
-                        <!-- Answer Divider -->
-                        <div id="study-answer-divider" class="hidden w-full border-t border-dashed border-indigo-100 my-2"></div>
-
-                        <!-- Answer Area -->
-                        <div id="study-answer-area" class="hidden space-y-2 w-full fade-in">
-                            <span class="text-xs font-bold text-emerald-500 uppercase tracking-widest block">ANSWER</span>
-                            <p id="study-answer-text" class="text-xl md:text-2xl font-extrabold text-emerald-600">
-                                答えがここに表示されます。
-                            </p>
-                        </div>
+                <div id="answer-reveal-area" class="hidden border-t border-slate-100 bg-slate-50/70 p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center justify-center space-x-2">
+                        <div id="correct-answer-icon" class="p-1 rounded-full text-white">
+                            </div>
+                        <span id="correct-answer-text" class="text-xl font-black tracking-wide">--</span>
                     </div>
-
-                    <!-- Keyboard help footer -->
-                    <div class="px-6 py-3 bg-slate-50 text-center border-t border-slate-100 hidden sm:block">
-                        <span class="text-xs text-slate-400 font-medium"解答表示 / 正解 / 誤り / 戻る進む</span>
+                    <div class="max-w-xl mx-auto bg-white border border-slate-200/60 rounded-xl p-4 shadow-sm">
+                        <p id="study-explanation-text" class="text-sm text-slate-600 leading-relaxed text-left">
+                            解説文がここに表示されます。
+                        </p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Control Buttons Footer -->
-            <div class="space-y-3">
-                <!-- State 1: Before showing answer -->
-                <div id="control-before-answer" class="w-full">
-                    <button onclick="revealAnswer()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-2xl shadow-lg transition duration-150 flex items-center justify-center gap-2 text-lg">
+                <div class="p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-center gap-4">
+                    <button id="btn-show-answer" onclick="revealAnswer()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-slate-200 transition duration-150 flex items-center justify-center gap-2">
                         <i data-lucide="eye" class="w-5 h-5"></i>
-                        <span>解答を表示する</span>
+                        <span>答えと解説を見る</span>
                     </button>
-                </div>
 
-                <!-- State 2: After showing answer (Self Grading) -->
-                <div id="control-after-answer" class="hidden grid grid-cols-2 gap-4">
-                    <button onclick="gradeQuestion(false)" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border-2 border-rose-200 font-bold py-4 rounded-2xl transition duration-150 flex flex-col items-center justify-center gap-1">
-                        <div class="flex items-center gap-1">
-                            <i data-lucide="x" class="w-5 h-5"></i>
+                    <div id="feedback-buttons-group" class="hidden w-full grid grid-cols-2 gap-4">
+                        <button onclick="submitFeedback(true)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-md shadow-emerald-100 transition duration-150 flex items-center justify-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            <span>正解できた</span>
+                        </button>
+                        <button onclick="submitFeedback(false)" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-xl shadow-md shadow-rose-100 transition duration-150 flex items-center justify-center gap-2">
+                            <i data-lucide="x-circle" class="w-5 h-5"></i>
                             <span>間違えた</span>
-                        </div>
-                        <span class="text-[10px] opacity-75 font-normal">あとで復習</span>
-                    </button>
-                    <button onclick="gradeQuestion(true)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-100 transition duration-150 flex flex-col items-center justify-center gap-1">
-                        <div class="flex items-center gap-1">
-                            <i data-lucide="check" class="w-5 h-5"></i>
-                            <span>正解した</span>
-                        </div>
-                        <span class="text-[10px] text-emerald-100 font-normal">カンペキ！</span>
-                    </button>
-                </div>
-
-                <!-- Footer navigation index (Prev / Next manual overrides) -->
-                <div class="flex justify-between text-xs text-slate-400 px-2 font-medium">
-                    <button onclick="previousQuestion()" id="btn-prev-manual" class="hover:text-slate-600 disabled:opacity-30 flex items-center gap-1" disabled>
-                        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> 前へ戻る
-                    </button>
-                    <span>自ら正誤評価を行って次へ進みます</span>
-                    <button onclick="nextQuestionManual()" id="btn-next-manual" class="hover:text-slate-600 disabled:opacity-30 flex items-center gap-1">
-                        スキップ <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                    </button>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <div class="h-2"></div>
         </div>
 
-        <!-- ================= PAGE 3: SUMMARY RESULTS ================= -->
-        <div id="page-summary" class="hidden max-w-md w-full mx-auto space-y-6 fade-in text-center py-6">
-            <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-xl space-y-6">
-                <!-- Achievement Icon Animation -->
-                <div class="inline-flex p-4 bg-emerald-50 text-emerald-600 rounded-full mb-2">
-                    <i data-lucide="award" class="w-16 h-16 animate-bounce"></i>
-                </div>
+        <div id="page-result" class="hidden max-w-md w-full mx-auto bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 text-center space-y-6 shadow-xl shadow-slate-100 fade-in">
+            <div class="inline-flex p-4 bg-indigo-50 text-indigo-600 rounded-2xl shadow-inner">
+                <i data-lucide="trophy" class="w-10 h-10"></i>
+            </div>
+            
+            <div class="space-y-1">
+                <h3 class="text-xl font-bold text-slate-900">演習が完了しました！</h3>
+                <p class="text-xs text-slate-400 font-medium" id="result-datetime-label">----/--/-- --:--</p>
+            </div>
 
+            <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 grid grid-cols-2 divide-x divide-slate-200">
                 <div class="space-y-1">
-                    <h2 class="text-2xl font-black text-slate-900">学習完了！お疲れ様でした</h2>
-                    <p id="summary-subject-display" class="text-indigo-600 text-sm font-bold">政治・全単元</p>
+                    <span class="text-xs font-bold text-slate-400 block uppercase">正解率</span>
+                    <span id="result-accuracy-pct" class="text-2xl font-black text-indigo-600">0%</span>
                 </div>
-
-                <!-- Score Dashboard -->
-                <div class="grid grid-cols-2 gap-4 my-6">
-                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                        <span class="text-xs text-slate-400 block font-bold">正解率</span>
-                        <span id="summary-score-percent" class="text-3xl font-extrabold text-indigo-600">80%</span>
-                        <span id="summary-score-fraction" class="text-xs text-slate-500 block mt-1">8 / 10 問中</span>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                        <span class="text-xs text-slate-400 block font-bold">学習時間</span>
-                        <span id="summary-duration" class="text-3xl font-extrabold text-slate-700">01:45</span>
-                        <span class="text-xs text-slate-500 block mt-1">経過時間</span>
-                    </div>
+                <div class="space-y-1">
+                    <span class="text-xs font-bold text-slate-400 block uppercase">正解数 / 出題数</span>
+                    <span id="result-score-ratio" class="text-lg font-bold text-slate-700 block mt-1">0 / 0</span>
                 </div>
+            </div>
 
-                <!-- Motivation message -->
-                <p id="summary-evaluation-msg" class="text-slate-600 text-sm leading-relaxed px-2">
-                    素晴らしい進捗です！この調子で繰り返し暗記を行い、知識を長期記憶に定着させましょう。
-                </p>
+            <div class="text-xs font-semibold text-slate-500 bg-slate-50/50 p-2.5 rounded-lg border border-dashed border-slate-200 text-left space-y-1">
+                <div><span class="text-slate-400">対象教科:</span> <span id="result-subject-text" class="text-slate-700">---</span></div>
+                <div class="truncate"><span class="text-slate-400">対象単元:</span> <span id="result-units-text" class="text-slate-700">---</span></div>
+            </div>
 
-                <!-- Navigation buttons -->
-                <div class="pt-4 space-y-2">
-                    <button onclick="goToPortal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl transition duration-150 shadow-md">
-                        ポータルへ戻る
-                    </button>
-                </div>
+            <div class="pt-2 space-y-3">
+                <button onclick="backToPortal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-md transition duration-150">
+                    ポータルに戻る
+                </button>
             </div>
         </div>
 
     </main>
 
-    <!-- App Dialog / Confirmation Dialog -->
     <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4 fade-in">
-            <h3 id="modal-title" class="font-bold text-lg text-slate-900">確認</h3>
-            <p id="modal-message" class="text-sm text-slate-600 leading-relaxed">学習を中断してポータルに戻りますか？現在の進捗は保存されません。</p>
-            <div class="flex justify-end space-x-3 pt-2">
-                <button id="modal-btn-cancel" class="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition">キャンセル</button>
-                <button id="modal-btn-confirm" class="px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow transition">OK</button>
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-100 space-y-4 fade-in">
+            <h4 id="modal-title" class="font-bold text-slate-900 text-lg">確認</h4>
+            <p id="modal-message" class="text-sm text-slate-500 leading-relaxed">メッセージがここに入ります。</p>
+            <div class="flex items-center justify-end space-x-3 pt-2">
+                <button id="modal-btn-cancel" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 rounded-lg transition">
+                    キャンセル
+                </button>
+                <button id="modal-btn-confirm" class="px-4 py-2 text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white rounded-lg shadow-sm transition">
+                    終了する
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification Banner -->
-    <div id="toast-banner" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-xl shadow-xl flex items-center space-x-2.5 max-w-sm text-sm">
-        <i data-lucide="info" class="w-4 h-4 text-emerald-400"></i>
-        <span id="toast-message">メッセージ</span>
+    <div id="toast-banner" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg flex items-center space-x-2 fade-in">
+        <i data-lucide="info" class="w-4 h-4 text-indigo-400 shrink-0"></i>
+        <span id="toast-message">トースト通知メッセージ</span>
     </div>
 
-    <!-- Footer Information -->
-    <footer class="bg-white border-t border-slate-100 py-6 mt-12 text-center text-xs text-slate-400">
-        <div class="max-w-4xl mx-auto px-4 space-y-2">
-            <p>© 2026 公務員試験一問一答アプリ. All Rights Reserved.</p>
-            <p class="font-medium text-[11px]">公務員試験教養科目・知識分野対策</p>
-        </div>
-    </footer>
-
     <script>
-        // --- 1. EXTERNAL JSON FILE CONFIGURATION ---
-        // Mapping of Subjects to their respective relative JSON filepaths on GitHub.
-        // If you add a new subject, just add a line here and upload the corresponding JSON file!
-        const SUBJECT_FILES = {
-            "政治": "seiji.json",
-            "経済": "keizai.json",
-            "日本史": "nihonshi.json",
-            "世界史": "sekaishi.json",
-            "地理": "chiri.json",
-            "化学": "kagaku.json",
-            "生物": "seibutsu.json",
-            "地学": "chigaku.json",
-            "物理": "butsuri.json",
-            "思想": "shisou.json"
-        };
+        // Define hardcoded standard list of subjects and their corresponding JSON endpoints
+        const SUBJECTS_CONFIG = [
+            { id: "思想", name: "思想", icon: "lightbulb", color: "from-amber-500 to-orange-500" },
+            { id: "政治", name: "政治", icon: "landmark", color: "from-blue-500 to-indigo-500" },
+            { id: "経済", name: "経済", icon: "trending-up", color: "from-emerald-500 to-teal-500" },
+            { id: "日本史", name: "日本史", icon: "hourglass", color: "from-red-500 to-rose-500" },
+            { id: "世界史", name: "世界史", icon: "globe", color: "from-cyan-500 to-blue-500" },
+            { id: "地理", name: "地理", icon: "map", color: "from-khaki-500 to-lime-600" },
+            { id: "生物", name: "生物", icon: "dna", color: "from-purple-500 to-indigo-500" },
+            { id: "化学", name: "化学", icon: "flask", color: "from-pink-500 to-rose-500" },
+            { id: "物理", name: "物理", icon: "physic", color: "from-yellow-500 to-rose-500" },
+            { id: "地学", name: "地学", icon: "mountain", color: "from-orange-500 to-amber-600" }
+        ];
 
-        // In-memory runtime cache for questions loaded from separate JSON files.
-        let cachedDatabase = {};
-
-        // Student's last 10 study records from LocalStorage
-        let studyRecords = [];
-
-        // Active selection state
-        let selectedSubject = null;
+        // Global State Memory
+        let appDatabase = {}; 
+        let selectedSubjectId = null;
         let selectedUnits = [];
-        let playMode = 'sequential'; // 'sequential' or 'random'
+        let currentPlayMode = "sequential"; // sequential | random
+        let activeSessionQuestions = [];
+        let activeQuestionIdx = 0;
+        let sessionCorrectCount = 0;
+        let pastRecords = [];
 
-        // Ongoing session state
-        let sessionQuestions = [];
-        let sessionIndex = 0;
-        let sessionResults = []; // stores boolean matching correctness of response { index, correct }
-        let sessionTimerInterval = null;
-        let sessionSeconds = 0;
-        let isAnswerRevealed = false;
+        // Application Lifecycles
+        window.addEventListener('DOMContentLoaded', () => {
+            initApplication();
+        });
 
-        // --- 2. LIFE CYCLE & INIT ---
-        window.onload = function() {
-            // Load records
-            loadRecordsFromLocalStorage();
-            // Update UI widgets
-            renderPortal();
-            // Render Icons
+        async function initApplication() {
+            // Render basic UI items
+            renderSubjectCards();
+            loadRecordsFromStorage();
+            renderRecordsUI();
             lucide.createIcons();
 
-            // Setup keyboard listeners
-            window.addEventListener('keydown', handleGlobalKeydown);
-        };
-
-        // --- 3. DATA PERSISTENCE ---
-        function loadRecordsFromLocalStorage() {
-            try {
-                const stored = localStorage.getItem('komuin_student_study_records');
-                if (stored) {
-                    studyRecords = JSON.parse(stored);
-                } else {
-                    studyRecords = [];
-                }
-            } catch (e) {
-                console.error("Study records parse error", e);
-                studyRecords = [];
-            }
+            // 起動直後にすべての科目のJSONデータを自動的にバックグラウンドで先読み
+            await prefetchAllSubjectsData();
         }
 
-        function saveRecordsToLocalStorage() {
-            localStorage.setItem('komuin_student_study_records', JSON.stringify(studyRecords));
-        }
-
-        // --- 4. DYNAMIC DATA FETCHING ---
-        // Dynamically downloads the requested subject's JSON file when the user clicks the card
-        async function selectSubject(subject) {
-            selectedSubject = subject;
-            selectedUnits = [];
-            
-            // Hide unit selector and show loading status
-            document.getElementById('unit-selection-section').classList.add('hidden');
-            document.getElementById('play-settings-section').classList.add('hidden');
-            const loadingIndicator = document.getElementById('loading-indicator');
-            loadingIndicator.classList.remove('hidden');
-
-            const fileName = SUBJECT_FILES[subject];
-            if (!fileName) {
-                showToast("指定された教科のファイル設定が見つかりません。", true);
-                loadingIndicator.classList.add('hidden');
-                return;
-            }
-
-            // Check if already fetched and in-memory
-            if (cachedDatabase[subject]) {
-                loadingIndicator.classList.add('hidden');
-                selectedUnits = [...new Set(cachedDatabase[subject].map(q => q.unit))];
-                renderPortal();
-                return;
-            }
-
-            try {
-                // Fetch relative JSON file (e.g., ./seiji.json)
-                const response = await fetch(fileName);
-                if (!response.ok) {
-                    throw new Error(`HTTP status ${response.status}`);
-                }
-                const data = await response.json();
-                
-                // Save to cache
-                cachedDatabase[subject] = data;
-                selectedUnits = [...new Set(data.map(q => q.unit))];
-                
-                showToast(`「${subject}」の問題データを読み込みました！`);
-            } catch (err) {
-                console.error(err);
-                showToast(`ファイルの読み込みに失敗しました。GitHubに「${fileName}」が正しく設置されているか確認してください。`, true);
-                selectedSubject = null;
-            } finally {
-                loadingIndicator.classList.add('hidden');
-                renderPortal();
-            }
-        }
-
-        // --- 5. RENDER INTERFACES ---
-        function renderPortal() {
-            // Render Subject Cards
+        // Render Subject Cards to Grid
+        function renderSubjectCards() {
             const container = document.getElementById('subject-cards-container');
-            container.innerHTML = '';
+            container.innerHTML = "";
 
-            Object.keys(SUBJECT_FILES).forEach(subject => {
-                const isSelected = selectedSubject === subject;
-                const isLoaded = !!cachedDatabase[subject];
+            SUBJECTS_CONFIG.forEach(sub => {
+                const card = document.createElement('button');
+                card.id = `sub-card-${sub.id}`;
+                card.onclick = () => selectSubject(sub.id);
+                card.className = "bg-white border border-slate-200 hover:border-indigo-400 p-4 rounded-xl text-left transition duration-150 shadow-sm hover:shadow flex flex-col justify-between space-y-4 group relative overflow-hidden";
                 
-                const card = document.createElement('div');
-                card.className = `cursor-pointer rounded-xl p-4 border transition duration-150 flex flex-col justify-between h-24 relative overflow-hidden ${
-                    isSelected 
-                    ? 'border-indigo-600 bg-indigo-50/70 shadow-sm' 
-                    : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm'
-                }`;
-                card.onclick = () => selectSubject(subject);
-
                 card.innerHTML = `
-                    <div class="space-y-1">
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-500'}">教科</span>
-                            ${isSelected ? '<i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600"></i>' : ''}
-                        </div>
-                        <h5 class="font-bold text-slate-900 text-sm pt-1 truncate">${escapeHtml(subject)}</h5>
+                    <div class="p-2 bg-slate-50 group-hover:bg-indigo-50 text-slate-700 group-hover:text-indigo-600 rounded-lg w-10 h-10 flex items-center justify-center transition">
+                        <i data-lucide="${sub.icon || 'book'}" class="w-5 h-5"></i>
                     </div>
-                    <span class="text-[10px] text-slate-400 font-semibold">
-                        ${isLoaded ? `${cachedDatabase[subject].length} 問収録 (読込済)` : '未読込 (クリックで取得)'}
-                    </span>
+                    <div>
+                        <h5 class="font-bold text-slate-800 text-sm tracking-tight">${sub.name}</h5>
+                        <p id="sub-count-badge-${sub.id}" class="text-[10px] text-slate-400 font-medium mt-0.5">未読込み</p>
+                    </div>
+                    <div class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 text-indigo-500 transition duration-150">
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
                 `;
                 container.appendChild(card);
             });
-
-            // Update unit lists if a subject is currently selected and loaded
-            renderUnitSelector();
-
-            // Render Last 10 records
-            renderStudyRecords();
-
-            // Refresh icons dynamically loaded
-            lucide.createIcons();
         }
 
-        function renderUnitSelector() {
-            const unitSection = document.getElementById('unit-selection-section');
-            const playSettingsSection = document.getElementById('play-settings-section');
-            const checkboxesContainer = document.getElementById('unit-checkboxes-container');
+        // すべての教科のJSONデータを即時自動読込みする処理
+        async function prefetchAllSubjectsData() {
+            document.getElementById('loading-indicator').classList.remove('hidden');
+            
+            const fetchPromises = SUBJECTS_CONFIG.map(async (sub) => {
+                try {
+                    // 各科目の「○×.xlsx - 科目名.csv」等から変換されたJSONエンドポイント（または同一階層のjsonファイル）を想定
+                    const response = await fetch(`./${sub.id}.json`);
+                    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                    const data = await response.ok ? await response.json() : [];
+                    
+                    // グローバルデータベースに格納
+                    appDatabase[sub.id] = data;
 
-            if (!selectedSubject || !cachedDatabase[selectedSubject]) {
-                unitSection.classList.add('hidden');
-                playSettingsSection.classList.add('hidden');
-                return;
-            }
-
-            unitSection.classList.remove('hidden');
-            playSettingsSection.classList.remove('hidden');
-
-            // Collect unique units
-            const questions = cachedDatabase[selectedSubject];
-            const units = [...new Set(questions.map(q => q.unit))];
-
-            checkboxesContainer.innerHTML = '';
-            units.forEach((unit, idx) => {
-                const isChecked = selectedUnits.includes(unit);
-                const count = questions.filter(q => q.unit === unit).length;
-                
-                const wrapper = document.createElement('div');
-                wrapper.className = 'flex items-center justify-between p-2.5 bg-white rounded-lg border border-slate-100 hover:border-slate-200 transition';
-                
-                wrapper.innerHTML = `
-                    <div class="flex items-center space-x-2">
-                        <input type="checkbox" id="chk-unit-${idx}" value="${escapeHtml(unit)}" ${isChecked ? 'checked' : ''} 
-                               onchange="onUnitCheckboxChanged()" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 cursor-pointer">
-                        <label for="chk-unit-${idx}" class="text-xs font-semibold text-slate-700 cursor-pointer select-none truncate max-w-[200px] sm:max-w-[280px]">
-                            ${escapeHtml(unit)}
-                        </label>
-                    </div>
-                    <span class="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">${count} 問</span>
-                `;
-                checkboxesContainer.appendChild(wrapper);
+                    // カードのバッジテキストを更新
+                    const badge = document.getElementById(`sub-count-badge-${sub.id}`);
+                    if (badge) badge.textContent = `全 ${data.length || 0} 問`;
+                } catch (e) {
+                    console.warn(`Failed to preload data for ${sub.id}:`, e);
+                    const badge = document.getElementById(`sub-count-badge-${sub.id}`);
+                    if (badge) badge.textContent = "エラー";
+                    appDatabase[sub.id] = [];
+                }
             });
 
-            // Check if all are selected
-            const allCheckbox = document.getElementById('checkbox-all-units');
-            const checkedBoxes = Array.from(checkboxesContainer.querySelectorAll('input[type="checkbox"]:checked'));
-            if (checkedBoxes.length === units.length && units.length > 0) {
-                allCheckbox.checked = true;
-            } else {
-                allCheckbox.checked = false;
-            }
+            await Promise.all(fetchPromises);
+            document.getElementById('loading-indicator').classList.add('hidden');
+            showToast("すべての問題データを自動読込みしました");
         }
 
-        function renderStudyRecords() {
-            const container = document.getElementById('record-list-container');
-            if (studyRecords.length === 0) {
-                container.innerHTML = `
-                    <div class="h-full flex flex-col items-center justify-center text-center p-8 text-slate-400 space-y-2">
-                        <i data-lucide="award" class="w-10 h-10 stroke-1 text-slate-300"></i>
-                        <p class="text-xs font-semibold">まだ学習記録がありません</p>
-                        <p class="text-[10px] text-slate-400">暗記を完了させるとここに履歴が表示されます。</p>
-                    </div>
-                `;
+        // Subject Card Selection Logic
+        function selectSubject(subjectId) {
+            selectedSubjectId = subjectId;
+
+            // Highlight chosen card visual cues
+            SUBJECTS_CONFIG.forEach(s => {
+                const card = document.getElementById(`sub-card-${s.id}`);
+                if (!card) return;
+                if (s.id === subjectId) {
+                    card.classList.remove('bg-white', 'border-slate-200');
+                    card.classList.add('bg-indigo-50/50', 'border-indigo-500', 'ring-2', 'ring-indigo-100');
+                } else {
+                    card.classList.remove('bg-indigo-50/50', 'border-indigo-500', 'ring-2', 'ring-indigo-100');
+                    card.classList.add('bg-white', 'border-slate-200');
+                }
+            });
+
+            // Parse and populate units from already loaded data
+            const records = appDatabase[subjectId] || [];
+            buildUnitCheckboxes(records);
+        }
+
+        function buildUnitCheckboxes(records) {
+            const container = document.getElementById('unit-checkboxes-container');
+            container.innerHTML = "";
+
+            // Collect distinct units
+            let unitMap = {};
+            records.forEach(r => {
+                let uName = r.unit || "共通・その他";
+                unitMap[uName] = (unitMap[uName] || 0) + 1;
+            });
+
+            const uniqueUnits = Object.keys(unitMap);
+
+            if (uniqueUnits.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 p-2">該当データがありません。</p>`;
+                document.getElementById('unit-selection-section').classList.add('hidden');
+                document.getElementById('play-settings-section').classList.add('hidden');
                 return;
             }
 
-            container.innerHTML = studyRecords.map(rec => {
-                const date = new Date(rec.timestamp);
-                const dateString = `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-                const passRate = rec.total > 0 ? Math.round((rec.correct / rec.total) * 100) : 0;
+            uniqueUnits.forEach((uName, idx) => {
+                const qCount = unitMap[uName];
+                const wrapper = document.createElement('div');
+                wrapper.className = "flex items-center justify-between p-2 hover:bg-white rounded-lg transition border border-transparent hover:border-slate-200/60";
                 
-                // Color configuration of rating
-                let badgeColor = "bg-slate-100 text-slate-600";
-                if (passRate >= 90) badgeColor = "bg-emerald-50 text-emerald-700 border border-emerald-100";
-                else if (passRate >= 70) badgeColor = "bg-indigo-50 text-indigo-700 border border-indigo-100";
-                else if (passRate >= 40) badgeColor = "bg-amber-50 text-amber-700 border border-amber-100";
-                else if (rec.total > 0) badgeColor = "bg-rose-50 text-rose-700 border border-rose-100";
-
-                return `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100 hover:bg-slate-100/50 transition">
-                        <div class="space-y-0.5 max-w-[65%]">
-                            <div class="flex items-center space-x-1.5">
-                                <span class="text-xs font-extrabold text-slate-800 truncate">${escapeHtml(rec.subject)}</span>
-                                <span class="text-[9px] text-slate-400 font-medium">${dateString}</span>
-                            </div>
-                            <p class="text-[10px] text-slate-500 truncate">単元: ${escapeHtml(rec.unitsSummary)}</p>
-                            <div class="flex items-center space-x-2 text-[9px] text-slate-400">
-                                <span>時間: ${formatSecondsToTime(rec.duration)}</span>
-                                <span>•</span>
-                                <span>${rec.mode === 'random' ? 'ランダム' : '順次'}</span>
-                            </div>
-                        </div>
-                        <div class="text-right flex flex-col items-end justify-center">
-                            <span class="text-xs font-black px-2 py-0.5 rounded ${badgeColor}">${passRate}%</span>
-                            <span class="text-[9px] text-slate-400 mt-0.5">${rec.correct}/${rec.total}問</span>
-                        </div>
+                wrapper.innerHTML = `
+                    <div class="flex items-center">
+                        <input type="checkbox" id="chk-unit-${idx}" value="${uName}" checked onchange="syncSelectedUnitsState()" class="unit-individual-checkbox w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                        <label for="chk-unit-${idx}" class="ml-2.5 text-xs font-bold text-slate-700 cursor-pointer select-none truncate max-w-[180px]">${uName}</label>
                     </div>
+                    <span class="text-[10px] font-bold text-slate-400 bg-slate-200/50 px-1.5 py-0.5 rounded-full">${qCount}題</span>
                 `;
-            }).join('');
-        }
+                container.appendChild(wrapper);
+            });
 
-        // --- 6. USER INTERACTION HANDLERS ---
-        function onUnitCheckboxChanged() {
-            const container = document.getElementById('unit-checkboxes-container');
-            const checkedInputNodes = container.querySelectorAll('input[type="checkbox"]:checked');
-            selectedUnits = Array.from(checkedInputNodes).map(input => input.value);
-            renderUnitSelector();
-        }
-
-        function toggleSelectAllUnits(allCheckbox) {
-            if (!selectedSubject || !cachedDatabase[selectedSubject]) return;
-            const container = document.getElementById('unit-checkboxes-container');
-            const inputs = container.querySelectorAll('input[type="checkbox"]');
+            // Synchronize selection arrays
+            document.getElementById('checkbox-all-units').checked = true;
+            document.getElementById('unit-selection-section').classList.remove('hidden');
+            document.getElementById('play-settings-section').classList.remove('hidden');
             
-            if (allCheckbox.checked) {
-                selectedUnits = [...new Set(cachedDatabase[selectedSubject].map(q => q.unit))];
-                inputs.forEach(i => i.checked = true);
-            } else {
-                selectedUnits = [];
-                inputs.forEach(i => i.checked = false);
-            }
-            renderUnitSelector();
+            syncSelectedUnitsState();
+        }
+
+        function toggleSelectAllUnits(masterNode) {
+            const boxes = document.querySelectorAll('.unit-individual-checkbox');
+            boxes.forEach(b => b.checked = masterNode.checked);
+            syncSelectedUnitsState();
+        }
+
+        function syncSelectedUnitsState() {
+            const boxes = document.querySelectorAll('.unit-individual-checkbox');
+            let arr = [];
+            let allChecked = true;
+            
+            boxes.forEach(b => {
+                if (b.checked) arr.push(b.value);
+                else allChecked = false;
+            });
+
+            selectedUnits = arr;
+            document.getElementById('checkbox-all-units').checked = (boxes.length > 0 && allChecked);
         }
 
         function setPlayMode(mode) {
-            playMode = mode;
-            const btnSeq = document.getElementById('btn-mode-seq');
-            const btnRand = document.getElementById('btn-mode-rand');
+            currentPlayMode = mode;
+            const seqBtn = document.getElementById('btn-mode-seq');
+            const randBtn = document.getElementById('btn-mode-rand');
 
             if (mode === 'sequential') {
-                btnSeq.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-white text-indigo-600 shadow-sm";
-                btnRand.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-600 hover:text-slate-900";
+                seqBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-white text-indigo-600 shadow-sm";
+                randBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-600 hover:text-slate-900";
             } else {
-                btnSeq.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-600 hover:text-slate-900";
-                btnRand.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-white text-indigo-600 shadow-sm";
+                randBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 bg-white text-indigo-600 shadow-sm";
+                seqBtn.className = "px-4 py-2 text-xs font-bold rounded-md transition duration-150 text-slate-600 hover:text-slate-900";
             }
         }
 
-        function scrollToSelection() {
-            document.getElementById('selection-anchor').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- 7. SESSION CONTROLLER (CORE WORKFLOW) ---
+        // Start Learning Session Filtering Questions
         function startSession() {
-            if (!selectedSubject || selectedUnits.length === 0) {
-                showToast("教科と単元を1つ以上選択してください。", true);
+            if (!selectedSubjectId) {
+                showToast("教科が選択されていません", true);
+                return;
+            }
+            if (selectedUnits.length === 0) {
+                showToast("少なくとも1つの単元を選択してください", true);
                 return;
             }
 
-            const basePool = cachedDatabase[selectedSubject];
-            if (!basePool) return;
+            const rawPool = appDatabase[selectedSubjectId] || [];
+            let filtered = rawPool.filter(q => {
+                let targetU = q.unit || "共通・その他";
+                return selectedUnits.includes(targetU);
+            });
 
-            let pool = basePool.filter(q => selectedUnits.includes(q.unit));
-            if (pool.length === 0) {
-                showToast("選択された単元には問題が存在しません。", true);
+            if (filtered.length === 0) {
+                showToast("選択された構成条件の問題数が0件です", true);
                 return;
             }
 
-            // Clone questions
-            sessionQuestions = JSON.parse(JSON.stringify(pool));
-
-            // Scramble order if playMode is randomized
-            if (playMode === 'random') {
-                shuffleArray(sessionQuestions);
+            // Shuffle pool if random mode activated
+            if (currentPlayMode === 'random') {
+                filtered = shuffleArray([...filtered]);
             }
 
-            // Reset indices & timers
-            sessionIndex = 0;
-            sessionResults = new Array(sessionQuestions.length).fill(null);
-            sessionSeconds = 0;
-            isAnswerRevealed = false;
+            // Bind into working session properties
+            activeSessionQuestions = filtered;
+            activeQuestionIdx = 0;
+            sessionCorrectCount = 0;
 
-            // Start timer execution loop
-            document.getElementById('study-timer').textContent = "00:00";
-            clearInterval(sessionTimerInterval);
-            sessionTimerInterval = setInterval(() => {
-                sessionSeconds++;
-                document.getElementById('study-timer').textContent = formatSecondsToTime(sessionSeconds);
-            }, 1000);
-
-            // Navigate to Study Screen
+            // Interface screen swapping
             document.getElementById('page-portal').classList.add('hidden');
             document.getElementById('page-study').classList.remove('hidden');
-            document.getElementById('page-summary').classList.add('hidden');
 
-            // Render first card
-            updateFlashcard();
+            setupQuestionCardUI();
         }
 
-        function updateFlashcard() {
-            if (sessionIndex < 0 || sessionIndex >= sessionQuestions.length) return;
+        function setupQuestionCardUI() {
+            if (activeQuestionIdx >= activeSessionQuestions.length) {
+                finishSession();
+                return;
+            }
 
-            const q = sessionQuestions[sessionIndex];
+            const currentQ = activeSessionQuestions[activeQuestionIdx];
             
-            // Stats updates
-            document.getElementById('study-header-subject').textContent = selectedSubject;
-            document.getElementById('study-progress-text').textContent = `${sessionIndex + 1} / ${sessionQuestions.length}`;
+            // Header stats updates
+            document.getElementById('study-subject-badge').textContent = selectedSubjectId;
+            document.getElementById('study-progress-text').textContent = `${activeQuestionIdx + 1} / ${activeSessionQuestions.length} 問`;
             
-            const progressPercent = ((sessionIndex + 1) / sessionQuestions.length) * 100;
-            document.getElementById('study-progress-bar').style.width = `${progressPercent}%`;
+            const pct = ((activeQuestionIdx) / activeSessionQuestions.length) * 100;
+            document.getElementById('study-progress-bar').style.width = `${pct}%`;
 
-            // Card details
-            document.getElementById('study-card-unit').textContent = `単元: ${q.unit}`;
-            document.getElementById('study-question-text').textContent = q.question;
-            document.getElementById('study-answer-text').textContent = q.answer;
+            // Core labels
+            document.getElementById('study-unit-badge').textContent = currentQ.unit || "共通";
+            document.getElementById('study-question-text').textContent = currentQ.question || "問題文データが破損しています。";
 
-            // Hide/reveal reset state
-            isAnswerRevealed = false;
-            document.getElementById('study-answer-divider').classList.add('hidden');
-            document.getElementById('study-answer-area').classList.add('hidden');
-
-            // Toggle active controls
-            document.getElementById('control-before-answer').classList.remove('hidden');
-            document.getElementById('control-after-answer').classList.add('hidden');
-
-            // Setup navigation boundaries
-            document.getElementById('btn-prev-manual').disabled = (sessionIndex === 0);
-            
-            lucide.createIcons();
+            // Hide answers reveal blocks back to normal initial state
+            document.getElementById('answer-reveal-area').classList.add('hidden');
+            document.getElementById('feedback-buttons-group').classList.add('hidden');
+            document.getElementById('btn-show-answer').classList.remove('hidden');
         }
 
         function revealAnswer() {
-            isAnswerRevealed = true;
-            document.getElementById('study-answer-divider').classList.remove('hidden');
-            document.getElementById('study-answer-area').classList.remove('hidden');
+            const currentQ = activeSessionQuestions[activeQuestionIdx];
+            const answerArea = document.getElementById('answer-reveal-area');
+            const answerIcon = document.getElementById('correct-answer-icon');
+            const answerText = document.getElementById('correct-answer-text');
+            const explText = document.getElementById('study-explanation-text');
 
-            document.getElementById('control-before-answer').classList.add('hidden');
-            document.getElementById('control-after-answer').classList.remove('hidden');
-        }
-
-        function gradeQuestion(isCorrect) {
-            sessionResults[sessionIndex] = isCorrect;
-
-            if (isCorrect) {
-                showToast("正解にマークしました", false);
+            const isO = (String(currentQ.answer).trim() === "○" || String(currentQ.answer).trim() === "1" || String(currentQ.answer).toLowerCase() === "true");
+            
+            if (isO) {
+                answerIcon.className = "p-1.5 bg-emerald-500 text-white rounded-full flex items-center justify-center";
+                answerIcon.innerHTML = `<i data-lucide="circle" class="w-6 h-6 stroke-[3]"></i>`;
+                answerText.textContent = "正しい（○）";
+                answerText.className = "text-xl font-black tracking-wide text-emerald-600";
             } else {
-                showToast("誤答にマークしました", false);
+                answerIcon.className = "p-1.5 bg-rose-500 text-white rounded-full flex items-center justify-center";
+                answerIcon.innerHTML = `<i data-lucide="x" class="w-6 h-6 stroke-[3]"></i>`;
+                answerText.textContent = "誤り（×）";
+                answerText.className = "text-xl font-black tracking-wide text-rose-600";
             }
 
-            // Move to next or complete
-            if (sessionIndex < sessionQuestions.length - 1) {
-                sessionIndex++;
-                updateFlashcard();
-            } else {
-                finishSession();
-            }
+            explText.textContent = currentQ.explanation || "この問題に解説テキストはありません。";
+            
+            lucide.createIcons();
+
+            // Toggle visibilities
+            answerArea.classList.remove('hidden');
+            document.getElementById('btn-show-answer').classList.add('hidden');
+            document.getElementById('feedback-buttons-group').classList.remove('hidden');
         }
 
-        function previousQuestion() {
-            if (sessionIndex > 0) {
-                sessionIndex--;
-                updateFlashcard();
+        function submitFeedback(wasCorrect) {
+            if (wasCorrect) {
+                sessionCorrectCount++;
             }
+
+            // Increment index and view next
+            activeQuestionIdx++;
+            setupQuestionCardUI();
         }
 
-        function nextQuestionManual() {
-            if (sessionIndex < sessionQuestions.length - 1) {
-                sessionIndex++;
-                updateFlashcard();
-            } else {
-                finishSession();
-            }
-        }
-
-        // --- 8. SESSION FINALIZE ---
         function finishSession() {
-            clearInterval(sessionTimerInterval);
+            document.getElementById('study-progress-bar').style.width = '100%';
+            
+            // Generate standard summary numbers
+            const total = activeSessionQuestions.length;
+            const accuracy = total > 0 ? Math.round((sessionCorrectCount / total) * 100) : 0;
 
-            const total = sessionQuestions.length;
-            const correctCount = sessionResults.filter(r => r === true).length;
-            const percentage = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            document.getElementById('result-accuracy-pct').textContent = `${accuracy}%`;
+            document.getElementById('result-score-ratio').textContent = `${sessionCorrectCount} / ${total}`;
+            document.getElementById('result-subject-text').textContent = selectedSubjectId;
+            
+            // Format units snippet text
+            let uStr = selectedUnits.join(', ');
+            if (uStr.length > 40) uStr = uStr.substring(0, 38) + '...';
+            document.getElementById('result-units-text').textContent = uStr;
 
-            // Setup scoreboards
-            document.getElementById('summary-subject-display').textContent = `${selectedSubject} (${selectedUnits.length}単元)`;
-            document.getElementById('summary-score-percent').textContent = `${percentage}%`;
-            document.getElementById('summary-score-fraction').textContent = `${correctCount} / ${total} 問中`;
-            document.getElementById('summary-duration').textContent = formatSecondsToTime(sessionSeconds);
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+            document.getElementById('result-datetime-label').textContent = dateStr;
 
-            // Display feedback
-            let feedback = "";
-            if (percentage === 100) {
-                feedback = "素晴らしい！完璧です。この教科の知識はバッチリ身についています。この調子をキープしましょう！";
-            } else if (percentage >= 80) {
-                feedback = "優秀な成績です！合格基準を充分クリアしています。間違えた問題を軽く見直して、満点を目指しましょう。";
-            } else if (percentage >= 50) {
-                feedback = "合格ラインまであと少し！公務員試験は基本問題の確実な正答が合否を分けます。何度も繰り返し挑戦しましょう。";
-            } else {
-                feedback = "まずは繰り返し解いて用語の雰囲気に慣れましょう。焦る必要はありません。一歩ずつ前進です！";
-            }
-            document.getElementById('summary-evaluation-msg').textContent = feedback;
-
-            // Save to LocalStorage Records
-            const summaryString = selectedUnits.length > 1 
-                ? `${selectedUnits[0]} 外 ${selectedUnits.length - 1}件` 
-                : selectedUnits[0];
-
-            const record = {
-                id: crypto.randomUUID(),
-                timestamp: new Date().getTime(),
-                subject: selectedSubject,
-                unitsSummary: summaryString,
+            // Commit record entity to list log history
+            const recordItem = {
+                id: Date.now(),
+                timestamp: dateStr,
+                subject: selectedSubjectId,
+                correct: sessionCorrectCount,
                 total: total,
-                correct: correctCount,
-                duration: sessionSeconds,
-                mode: playMode
+                accuracy: accuracy
             };
 
-            studyRecords.unshift(record);
-            if (studyRecords.length > 10) {
-                studyRecords.pop();
-            }
+            pastRecords.unshift(recordItem);
+            if (pastRecords.length > 10) pastRecords.pop(); // Cap history to 10 entries max
+            saveRecordsToStorage();
+            renderRecordsUI();
 
-            saveRecordsToLocalStorage();
-
-            // Transition
+            // Transition pages view
             document.getElementById('page-study').classList.add('hidden');
-            document.getElementById('page-summary').classList.remove('hidden');
-
-            lucide.createIcons();
+            document.getElementById('page-result').classList.remove('hidden');
         }
 
         function exitSessionConfirm() {
-            showConfirmModal(
-                "学習の中断", 
-                "学習を中断してポータルへ戻りますか？現在の進捗は保存されません。", 
-                () => {
-                    clearInterval(sessionTimerInterval);
-                    goToPortal();
-                }
-            );
+            const modal = document.getElementById('custom-modal');
+            modal.classList.remove('hidden');
+
+            document.getElementById('modal-btn-confirm').onclick = () => {
+                modal.classList.add('hidden');
+                backToPortal();
+            };
+            document.getElementById('modal-btn-cancel').onclick = () => {
+                modal.classList.add('hidden');
+            };
         }
 
-        function goToPortal() {
+        function backToPortal() {
             document.getElementById('page-study').classList.add('hidden');
-            document.getElementById('page-summary').classList.add('hidden');
+            document.getElementById('page-result').classList.add('hidden');
             document.getElementById('page-portal').classList.remove('hidden');
             
-            renderPortal();
+            // Scroll safely to dashboard selector anchors
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function clearRecords() {
-            showConfirmModal(
-                "記録の全消去", 
-                "これまでのすべての学習記録を消去してよろしいですか？この操作は取り消せません。", 
-                () => {
-                    studyRecords = [];
-                    saveRecordsToLocalStorage();
-                    renderPortal();
-                    showToast("学習記録をクリアしました。");
-                }
-            );
+        // Storage helpers
+        function saveRecordsToStorage() {
+            localStorage.setItem('om_quiz_records_v1', JSON.stringify(pastRecords));
         }
 
-        // --- 9. KEYBOARD SHORTCUT CONTROLS ---
-        function handleGlobalKeydown(e) {
-            const activeElem = document.activeElement;
-            if (activeElem && (activeElem.tagName === 'INPUT' || activeElem.tagName === 'TEXTAREA')) {
+        function loadRecordsFromStorage() {
+            try {
+                const stored = localStorage.getItem('om_quiz_records_v1');
+                pastRecords = stored ? JSON.parse(stored) : [];
+            } catch(e) {
+                pastRecords = [];
+            }
+        }
+
+        function renderRecordsUI() {
+            const container = document.getElementById('record-list-container');
+            container.innerHTML = "";
+
+            if (pastRecords.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-slate-100 rounded-xl bg-slate-50/50">
+                        <i data-lucide="bar-chart-2" class="w-8 h-8 text-slate-300 mb-2"></i>
+                        <p class="text-xs font-semibold text-slate-400">学習履歴はありません</p>
+                    </div>
+                `;
+                lucide.createIcons();
                 return;
             }
 
-            const studyScreen = document.getElementById('page-study');
-            if (studyScreen && !studyScreen.classList.contains('hidden')) {
-                if (e.code === 'Space') {
-                    e.preventDefault();
-                    if (!isAnswerRevealed) {
-                        revealAnswer();
-                    }
-                } else if (e.key === '1') {
-                    if (isAnswerRevealed) {
-                        gradeQuestion(false); // Wrong
-                    }
-                } else if (e.key === '2') {
-                    if (isAnswerRevealed) {
-                        gradeQuestion(true); // Correct
-                    }
-                } else if (e.key === 'ArrowRight') {
-                    nextQuestionManual();
-                } else if (e.key === 'ArrowLeft') {
-                    previousQuestion();
-                }
+            pastRecords.forEach(rec => {
+                const item = document.createElement('div');
+                item.className = "p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between text-xs transition hover:bg-slate-100/40";
+                
+                let perfColor = "text-rose-600 bg-rose-50 border-rose-100";
+                if (rec.accuracy >= 80) perfColor = "text-emerald-700 bg-emerald-50 border-emerald-100";
+                else if (rec.accuracy >= 50) perfColor = "text-amber-700 bg-amber-50 border-amber-100";
+
+                item.innerHTML = `
+                    <div class="space-y-0.5 truncate max-w-[140px]">
+                        <span class="font-black text-slate-800 block truncate">${rec.subject}</span>
+                        <span class="text-[10px] text-slate-400 font-medium block">${rec.timestamp}</span>
+                    </div>
+                    <div class="flex items-center space-x-3 shrink-0">
+                        <span class="text-slate-500 font-bold">${rec.correct}/${rec.total}問</span>
+                        <span class="px-2 py-0.5 rounded-full font-black text-[10px] border ${perfColor}">${rec.accuracy}%</span>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+            lucide.createIcons();
+        }
+
+        function clearRecords() {
+            if (confirm("過去の学習履歴をすべて消去しますか？")) {
+                pastRecords = [];
+                saveRecordsToStorage();
+                renderRecordsUI();
+                showToast("履歴を消去しました");
             }
         }
 
-        // --- 10. UTILITIES ---
+        // Pure utilities
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
+            return array;
         }
 
-        function formatSecondsToTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // Custom modal launcher
-        function showConfirmModal(title, msg, onConfirm) {
-            const modal = document.getElementById('custom-modal');
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-message').textContent = msg;
-
-            modal.classList.remove('hidden');
-
-            const btnConfirm = document.getElementById('modal-btn-confirm');
-            const btnCancel = document.getElementById('modal-btn-cancel');
-
-            btnConfirm.onclick = () => {
-                modal.classList.add('hidden');
-                if (onConfirm) onConfirm();
-            };
-
-            btnCancel.onclick = () => {
-                modal.classList.add('hidden');
-            };
-        }
-
-        // Simple toast banners
         let toastTimeout = null;
         function showToast(message, isError = false) {
             const toast = document.getElementById('toast-banner');
             const toastMsg = document.getElementById('toast-message');
 
             toastMsg.textContent = message;
-            
             if (isError) {
                 toast.classList.remove('bg-slate-900');
                 toast.classList.add('bg-rose-600');
@@ -940,7 +702,6 @@
             }
 
             toast.classList.remove('hidden');
-
             clearTimeout(toastTimeout);
             toastTimeout = setTimeout(() => {
                 toast.classList.add('hidden');
