@@ -223,7 +223,7 @@
 
                     <!-- Keyboard help footer -->
                     <div class="px-6 py-3 bg-slate-50 text-center border-t border-slate-100 hidden sm:block">
-                        <span class="text-xs text-slate-400 font-medium">ショートカットキー: [Space] 回答表示 / [2] 正解 / [1] 誤り / [←/→] 戻る進む</span>
+                        <span class="text-xs text-slate-400 font-medium"解答表示 / 正解 / 誤り / 戻る進む</span>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
                 <div id="control-before-answer" class="w-full">
                     <button onclick="revealAnswer()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-2xl shadow-lg transition duration-150 flex items-center justify-center gap-2 text-lg">
                         <i data-lucide="eye" class="w-5 h-5"></i>
-                        <span>解答を表示する (Space)</span>
+                        <span>解答を表示する</span>
                     </button>
                 </div>
 
@@ -243,14 +243,14 @@
                     <button onclick="gradeQuestion(false)" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border-2 border-rose-200 font-bold py-4 rounded-2xl transition duration-150 flex flex-col items-center justify-center gap-1">
                         <div class="flex items-center gap-1">
                             <i data-lucide="x" class="w-5 h-5"></i>
-                            <span>間違えた [キー1]</span>
+                            <span>間違えた</span>
                         </div>
                         <span class="text-[10px] opacity-75 font-normal">あとで復習</span>
                     </button>
                     <button onclick="gradeQuestion(true)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-100 transition duration-150 flex flex-col items-center justify-center gap-1">
                         <div class="flex items-center gap-1">
                             <i data-lucide="check" class="w-5 h-5"></i>
-                            <span>正解した [キー2]</span>
+                            <span>正解した</span>
                         </div>
                         <span class="text-[10px] text-emerald-100 font-normal">カンペキ！</span>
                     </button>
